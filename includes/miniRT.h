@@ -6,7 +6,7 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 16:05:29 by jinliang          #+#    #+#             */
-/*   Updated: 2026/07/21 16:16:35 by jinliang         ###   ########.fr       */
+/*   Updated: 2026/08/02 20:01:34 by jinliang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <fcntl.h>
 # include <math.h>
 # include <mlx.h>
-# include <stdio.h>
-# include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
 
@@ -34,6 +32,10 @@
 #  define KEY_A 97
 #  define KEY_S 115
 #  define KEY_D 100
+#  define KEY_UP 65362
+#  define KEY_DOWN 65364
+#  define KEY_LEFT 65361
+#  define KEY_RIGHT 65363
 #  define KEY_SPACE 32
 # endif
 
@@ -239,6 +241,10 @@ void				parse_plane(char **tokens, t_scene *scene);
 void				parse_cylinder(char **tokens, t_scene *scene);
 
 /* ── Parse utils ──────────────────────────────────────────────── */
+int					parse_sign(const char **str);
+double				parse_integer(const char **str);
+double				parse_fraction(const char **str);
+double				ft_strtod(const char *str, const char **endptr);
 double				parse_double(const char *s);
 double				parse_ratio(const char *s);
 t_color				parse_color(const char *s);
@@ -258,7 +264,6 @@ int					key_handler(int keycode, void *param);
 int					close_handler(t_app *app);
 
 /* ── Camera & render ──────────────────────────────────────────── */
-t_vec3				get_cam_right(t_vec3 dir);
 void				move_camera(int key, t_camera *cam, double speed);
 t_camera_basis		build_camera_basis(t_camera *cam);
 t_ray				get_ray(t_camera_basis *basis, double u, double v);
