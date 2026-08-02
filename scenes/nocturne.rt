@@ -1,0 +1,79 @@
+# ═══════════════════════════════════════════════════════════════════
+#  N O C T U R N E
+#  miniRT scene
+#
+#  One warm overhead beam cuts through pure darkness.
+#  A chrome sphere holds the stage at center.
+#  Copper and sapphire emerge half-lit from shadow on either side.
+#  Tiny jewels lie scattered at the base —
+#  each one a single, fierce point of specular fire.
+#
+#  Materials span the full range:
+#    chrome  → specular 0.98  shininess 512   (mirror-like glint)
+#    copper  → specular 0.70  shininess 140   (warm metallic)
+#    satin   → specular 0.80  shininess 160   (soft highlight)
+#    jewel   → specular 0.96  shininess 512   (needle-point spark)
+#    matte   → specular 0.05  shininess 4     (no highlight)
+#
+#  Improves dramatically after Step 3 (colored lights):
+#  warm key will tint lit faces gold, cool fill will blush
+#  shadow edges blue — zero .rt changes needed.
+# ═══════════════════════════════════════════════════════════════════
+
+A 0.03 12,10,22
+
+# camera — slightly right and elevated, asymmetric angle
+C 4,18,-24 -0.1,-0.35,1 50
+
+# ── LIGHTS ────────────────────────────────────────────────────────
+
+# warm overhead beam — the single source of truth
+L 0,42,18    1.0  255,230,180
+
+# cold whisper from the left — barely there
+L -28,10,-5  0.15 150,185,255
+
+# ── SURFACES ──────────────────────────────────────────────────────
+
+# stage floor — near-black, just enough gloss to catch the light
+pl 0,-5,0    0,1,0   20,16,26    0.25 48.0 0.0
+
+# back void — absorbs everything
+pl 0,0,48    0,0,-1  14,11,19    0.05  8.0 0.0
+
+# ── PROTAGONIST ───────────────────────────────────────────────────
+
+# pure polished chrome — the eye goes here first
+sp 0,3,14   12   230,232,235   0.98 512.0 0.0
+
+# ── SUPPORTING CAST ───────────────────────────────────────────────
+
+# left: warm copper — catches the key light orange-gold
+sp -16,1,14   8   192,110,55   0.70 140.0 0.0
+
+# right: deep sapphire — sits mostly in shadow, blue side lit
+sp  16,1,14   8    40,72,172   0.65  80.0 0.0
+
+# ── FOREGROUND ACCENTS ────────────────────────────────────────────
+
+# crimson satin — front left
+sp  -8,-2,4   4   210,58,58    0.80 160.0 0.0
+
+# jade satin — front right
+sp   8,-2,4   4    55,172,118  0.75 140.0 0.0
+
+# ── JEWELS ────────────────────────────────────────────────────────
+# tiny, almost resting on the floor
+# each one fires a single pixel-sized specular bullet at the camera
+
+sp  -2,-3.8,7   1.5   238,208,52   0.96 512.0 0.0
+sp   5,-4.0,9   1.0   200,80,210   0.92 400.0 0.0
+sp  -8,-4.2,10  1.0   255,135,35   0.94 450.0 0.0
+sp   1,-4.5,4   0.8    80,200,220  0.96 512.0 0.0
+
+# ── COLUMNS ───────────────────────────────────────────────────────
+# dark architectural frame — almost invisible, felt more than seen
+# center at y=9 height=36 → base sits at y=-9 (underground = hidden)
+#                          → cap reaches y=27 (lost in darkness above)
+cy -28,9,22   0,1,0   3.5  36   28,24,38   0.35 56.0 0.0
+cy  28,9,22   0,1,0   3.5  36   28,24,38   0.35 56.0 0.0
