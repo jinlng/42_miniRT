@@ -33,7 +33,8 @@ SRCS     = srcs/main.c \
 		   srcs/parser/parse_material.c \
            srcs/parser/parse_objects.c \
            srcs/parser/parse_utils.c \
-		   srcs/parser/utils.c \
+		   srcs/parser/tok_utils.c \
+		   srcs/parser/parse_num.c \
 		   srcs/parser/free_scene.c \
 		   srcs/window/mlx_init.c \
            srcs/window/mlx_hooks.c \

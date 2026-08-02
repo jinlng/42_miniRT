@@ -3,22 +3,21 @@
 # miniRT
 
 ## Description
-A minimal Ray Tracing engine built from scratch in C. This project is part of the 42 school curriculum, designed to explore the fundamentals of computer graphics, 3D vector mathematics, and ray-object intersection algorithms.
+`miniRT` simulates the propagation of light rays through a 3D environment to render photorealistic 2D images. Rather than relying on hardware-accelerated rasterization pipelines, miniRT calculates the path of individual light rays backwards from the camera lens through every pixel on the screen, evaluating geometry intersections, light attenuation, diffuse shading, and dynamic shadow casting.
 
 ### Goal
-This project is an introduction to the beautiful world of Ray Tracing, implementing geometry rendering, lighting, and shadows to render simple computer-generated images.
+This project is an introduction to the beautiful world of Ray Tracing, designed to explore the fundamentals of computer graphics, 3D vector mathematics, and ray-object intersection algorithms, implementing geometry rendering, lighting, and shadows to render simple computer-generated images.
 
 ### Features
-- **Geometric Primitives**  
-  Accurately renders Spheres, Planes, and Cylinders.
+- **Geometric Primitives**: Native support  **Spheres**, **Planes**, and **Cylinders**.
 
-- **Lighting Model**  
+- **Lighting Model**:
   Implements Phong/Lambertian shading with Ambient, Diffuse, and Specular lighting.
 
-- **Hard Shadows**  
+- **Hard Shadows**:
   Simulates realistic shadows by tracing shadow rays from intersection points toward light sources.
 
-- **Material System**
+- **Material System**:
   Supports configurable material properties:
   - Specular coefficient
   - Shininess
@@ -26,13 +25,143 @@ This project is an introduction to the beautiful world of Ray Tracing, implement
   - Transparency
   - Checkerboard textures
 
-- **Camera System**  
-  Configurable camera position, orientation vector, and Field of View (FOV).
+- **Interactive Camera Controls**
+  - **Camera Lock Mechanism**: Input safety lock to prevent unintended camera movement.
+  - **3D Translation (WASD & Directional Keys)**: Move the camera freely in 3D space.
+  - **Field of View Zoom**: Smooth optical zoom via mouse scroll wheel.
 
-- **Scene Parser**  
-  Reads and validates custom `.rt` scene files to dynamically create a 3D environment.
+- **Custom Scene Parsing**: Parse scenes dynamically from `.rt` configuration files with strict error handling.
 
-### Ray Tracing Theory
+## Instruction
+
+### Compile the project:
+
+```bash
+make
+```
+
+
+
+### Run a scene:
+Execute the program by passing a valid `.rt` scene configuration file as an argument:
+```bash
+./miniRT scenes/<rt_file_name>.rt
+```
+### Scene File Format (.rt)
+A scene file describes the camera, lights, objects and optional materials.
+
+The parser accepts optional material parameters after the required object parameters.
+Optional parameters must follow the color field and are parsed from left to right.
+
+#### Basic Structure
+
+```text
+A <ambient_ratio> <r,g,b>
+
+C <x,y,z> <nx,ny,nz> <FOV>
+
+L <x,y,z> <brightness> <r,g,b>
+
+```
+
+#### Camera
+| C | \<position\>| \<orientation\> | \<FOV\> |
+| :---: | :--- | :--- | :---: |
+| | Camera coordinates | Normalized direction vector | Field of view in degrees |
+
+#### Ambient Light
+```text
+A <ratio> <r,g,b>
+```
+
+#### Point Light
+```text
+L <position> <brightness> <r,g,b>
+```
+
+#### Objects
+- **Sphere**
+```text
+sp <x,y,z> <diameter> <r,g,b> (optionals: [ks] [shininess] [reflectivity] [transparency] [ior] [checkerboard])
+```
+- **Plane**
+```text
+pl <x,y,z> <nx,ny,nz> <r,g,b> (optionals: [material parameters])
+```
+- **Cylinder**
+```text
+cy <x,y,z> <nx,ny,nz> <diameter> <height> <r,g,b> (optionals: [material parameters])
+```
+
+#### Material Parameters
+Material parameters are parsed in this order:
+```text
+ks shininess reflectivity transparency ior checkerboard checker_size
+```
+| **Parameter** | **Description** |**Examples** |
+| :--- | :---: | :---: |
+| `ks` | Specular coefficient | 0 = no shine, 1 = glossy |
+| `shininess` | Specular exponent | 32.0 = shiny, 1.0 = dull |
+|`reflectivity` | Reflection intensity | 0.0 = no reflection, 1.0 = perfect mirror |
+|`transparency` | Transparency amount | 0.0 = opaque, 1.0 = fully transparent |
+|`ior` | Index of refraction | 1.0 = vacuum, 1.33 = water, 1.5 = glass, 2.42 = diamond |
+|`checkboard` | Enable checker texture (0/1) | 0 = no checkerboard, 1 = checkerboard pattern |
+|`checker_size` | Checker square size | 1.0 = 1m x 1m checkerboard squares (world units) |
+
+- *Specular Coefficient determines the total amount of shiny light reflected off a surface.*
+- *Specular Exponent dictates how "focused" or spread out the shiny reflection is. It is heavily tied to surface roughness.*
+
+### Controls & Keybindings
+
+🔒 By default, camera position and zoom level are **locked** to prevent accidental inputs.
+
+Press **`Space`** : to toggle **Lock / Unlock Camera mode** 
+#### 🔍 Zoom Controls
+| Input | Action | Effect |
+| :---: | :--- | :--- |
+| **Mouse Wheel Up** | **Zoom In** | Narrows camera FOV |
+| **Mouse Wheel Down** | **Zoom Out** | Widens camera FOV |
+
+#### 🚶 Camera Movement (Translation)
+| Key | Action | Description |
+| :---: | :--- | :--- |
+| **`W`** | **Move Forward** | Move along camera direction |
+| **`S`** | **Move Backward** | Move along camera direction |
+| **`A`** / **⬅️** | **Move Left** | Strafe left |
+| **`D`** / **➡️** | **Move Right** | Strafe right |
+| **⬆️** | **Move UP** | Strafe upwards |
+| **⬇️** | **Move Down** | Strafe downwards |
+
+**Exit**: to clean up memory and close application, press **`ESC`** or click on the ❌ on the window
+
+### Cleaning
+```bash
+make clean 		# Remove object files
+make fclean		# Remove object files and executable
+make re			# Recompile from scratch
+```
+
+## Algorithm
+
+### 1. Architecture & Key Data Structures
+```
+
+```
+
+### Intersect
+#### Cylinder
+```
+intersect_cylinder()
+        |
+        +------ hit_body()
+        |
+        +------ hit_cap()
+        |
+        +------ body_normal()
+```
+
+
+## Ray Tracing Theory
 
 miniRT is based on the idea that an image can be generated by simulating how light rays travel through a scene.
 
@@ -204,126 +333,37 @@ Final Color
 
 Finally, the floating-point color values `[0.0, 1.0]` are converted into 8-bit RGB values `[0, 255]` before writing them into the MiniLibX image buffer.
 
+
+### Rendering Pipeline
+
+#### 1. Ray Generation
+For each pixel $(x, y)$ on the screen, a **Primary Ray** $\vec{R}(t)$ is constructed from the camera position $\vec{O}$ through the normalized viewport coordinate $(u, v)$:
+
+$$\vec{R}(t) = \vec{O} + t \cdot \vec{D}$$
+
+* $\vec{O}$: Camera origin vector
+* $\vec{D}$: Normalized direction vector pointing to the pixel
+* $t$: Distance along the ray ($t > 0$)
+
+#### 2. Ray-Object Intersection Detection
+The primary ray is tested against every geometric object in the scene to find the **closest hit point** (smallest positive distance $t$):
+
+* **Sphere**: Solves a quadratic equation $at^2 + bt + c = 0$ using the discriminant $\Delta = b^2 - 4ac$.
+* **Plane**: Solves a linear equation using the dot product between ray direction and plane normal.
+* **Cylinder**: Intersects the curved infinite tube (quadratic equation in 2D projection) clamped by two cap planes.
+
+#### 3. Shading & Shadow Rays (Phong / Lambert Model)
+Once an intersection point $\mathbf{P}$ is found, the final color is calculated using the **Lambertian Diffuse Reflection** model:
+
+1. **Ambient Light**: Base color of the object multiplied by the global ambient ratio.
+2. **Diffuse Light**: Proportional to the cosine of the angle $\theta$ between the surface normal $\vec{N}$ and light vector $\vec{L}$:
+   $$\text{Diffuse} = \text{Color} \times \text{Light Brightness} \times \max(0, \vec{N} \cdot \vec{L})$$
+3. **Shadow Check**: A **Shadow Ray** is cast from point $\mathbf{P}$ towards the light source. If any object intersects this shadow ray before reaching the light, the point is in shadow (only ambient light is applied).
+
+#### 4. Supersampling Antialiasing (AA) *(Optional)*
+To smooth jagged edges, each pixel is divided into a $2 \times 2$ grid. Four sub-rays are cast per pixel, and their resultant colors are averaged ($25\%$ weight each) before rendering to the frame buffer.
+
 ---
-## Instruction
-
-### Compile the project:
-
-```bash
-make
-```
-
-### Run a scene:
-Execute the program by passing a valid `.rt` scene configuration file as an argument:
-```bash
-./miniRT scenes/multi_objects.rt
-
-```
-### Scene File Format (.rt)
-A scene file describes the camera, lights, objects and optional materials.
-
-The parser accepts optional material parameters after the required object parameters.
-Optional parameters must follow the color field and are parsed from left to right.
-
-#### Basic Structure
-
-```text
-A <ambient_ratio> <r,g,b>
-
-C <x,y,z> <nx,ny,nz> <FOV>
-
-L <x,y,z> <brightness> <r,g,b>
-
-```
-
-#### Camera
-| C | \<position\>| \<orientation\> | \<FOV\> |
-| :---: | :--- | :--- | :---: |
-| | Camera coordinates | Normalized direction vector | Field of view in degrees |
-
-#### Ambient Light
-```text
-A <ratio> <r,g,b>
-```
-
-#### Point Light
-```text
-L <position> <brightness> <r,g,b>
-```
-
-#### Objects
-- **Sphere**
-```text
-sp <x,y,z> <diameter> <r,g,b> (optionals: [ks] [shininess] [reflectivity] [transparency] [ior] [checkerboard])
-```
-- **Plane**
-```text
-pl <x,y,z> <nx,ny,nz> <r,g,b> (optionals: [material parameters])
-```
-- **Cylinder**
-```text
-cy <x,y,z> <nx,ny,nz> <diameter> <height> <r,g,b> (optionals: [material parameters])
-```
-
-#### Material Parameters
-Material parameters are parsed in this order:
-```text
-ks shininess reflectivity transparency ior checkerboard checker_size
-```
-| **Parameter** | **Description** |**Examples** |
-| :--- | :---: | :---: |
-| `ks` | Specular coefficient | 0 = no shine, 1 = glossy |
-| `shininess` | Specular exponent | 32.0 = shiny, 1.0 = dull |
-|`reflectivity` | Reflection intensity | 0.0 = no reflection, 1.0 = perfect mirror |
-|`transparency` | Transparency amount | 0.0 = opaque, 1.0 = fully transparent |
-|`ior` | Index of refraction | 1.0 = vacuum, 1.33 = water, 1.5 = glass, 2.42 = diamond |
-|`checkboard` | Enable checker texture (0/1) | 0 = no checkerboard, 1 = checkerboard pattern |
-|`checker_size` | Checker square size | 1.0 = 1m x 1m checkerboard squares (world units) |
-
-- *Specular Coefficient determines the total amount of shiny light reflected off a surface.*
-- *Specular Exponent dictates how "focused" or spread out the shiny reflection is. It is heavily tied to surface roughness.*
-
-### Controls
-
-🔒 By default, camera position and zoom level are **locked** to prevent accidental inputs.
-
-Press **`Space`** : to toggle **Lock / Unlock Camera mode** 
-#### 🔍 Zoom Controls
-| Input | Action | Effect |
-| :---: | :--- | :--- |
-| **Mouse Wheel Up** | **Zoom In** | Narrows camera FOV |
-| **Mouse Wheel Down** | **Zoom Out** | Widens camera FOV |
-
-#### 🚶 Camera Movement (Translation)
-| Key | Action | Description |
-| :---: | :--- | :--- |
-| **`W`** | **Move Forward** | Move along camera direction |
-| **`S`** | **Move Backward** | Move along camera direction |
-| **`A`** | **Move Left** | Strafe left |
-| **`D`** | **Move Right** | Strafe right |
-
-### Cleaning
-```bash
-make clean 		# Remove object files
-make fclean		# Remove object files and executable
-make re			# Recompile from scratch
-```
-
-## Algorithm
-
-### Intersect
-#### Cylinder
-```
-intersect_cylinder()
-        |
-        +------ hit_body()
-        |
-        +------ hit_cap()
-        |
-        +------ body_normal()
-```
-
-
 
 ## Dependencies
 - Language: Pure C (42 Norminette compliant)
