@@ -17,5 +17,5 @@ t_color	ambient_light(t_hit *hit, t_ambient *ambient)
 	t_color	color;
 
 	color = color_multiply(hit->mat->color, ambient->color);
-	return (color_scale(color, ambient->ratio * hit->mat->reflectivity));
+	return (color_scale(color, ambient->ratio));
 }
