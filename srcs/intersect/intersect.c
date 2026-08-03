@@ -6,7 +6,7 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 14:01:10 by jinliang          #+#    #+#             */
-/*   Updated: 2026/07/20 19:40:50 by jinliang         ###   ########.fr       */
+/*   Updated: 2026/08/03 18:01:37 by jinliang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,36 @@ static int	handle_cylinder(t_ray ray, t_object *obj, t_hit *hit,
 	return (0);
 }
 
+static int	handle_cone(t_ray ray, t_object *obj, t_hit *hit,
+		double *closest)
+{
+	t_hit	tmp;
+
+	tmp.t = *closest;
+	if (intersect_cone(ray, obj, &tmp) && tmp.t < *closest)
+    {
+        *closest = tmp.t;
+        *hit    = tmp;
+        return (1);
+    }
+	return (0);
+}
+
+static int	handle_triangle(t_ray ray, t_object *obj, t_hit *hit,
+		double *closest)
+{
+	t_hit	tmp;
+
+	tmp.t = *closest;
+	if (intersect_triangle(ray, obj, &tmp) && tmp.t < *closest)
+    {
+	    *closest = tmp.t;
+        *hit    = tmp;
+        return (1);
+    }
+	return (0);
+}
+
 int	intersect_scene(t_ray ray, t_scene *scene, t_hit *hit)
 {
 	t_object	*obj;
@@ -72,6 +102,10 @@ int	intersect_scene(t_ray ray, t_scene *scene, t_hit *hit)
 			hit_anything |= handle_plane(ray, obj, hit, &closest);
 		else if (obj->type == OBJ_CYLINDER)
 			hit_anything |= handle_cylinder(ray, obj, hit, &closest);
+		else if (obj->type == OBJ_CONE)
+			hit_anything |= handle_cone(ray, obj, hit, &closest);
+		else if (obj->type == OBJ_TRIANGLE)
+			hit_anything |= handle_triangle(ray, obj, hit, &closest);
 		obj = obj->next;
 	}
 	return (hit_anything);
