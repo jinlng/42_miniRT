@@ -35,6 +35,7 @@ SRCS     = srcs/main.c \
            srcs/parser/parse_utils.c \
 		   srcs/parser/tok_utils.c \
 		   srcs/parser/parse_num.c \
+		   srcs/parser/parse_objects_bis.c \
 		   srcs/parser/free_scene.c \
 		   srcs/window/mlx_init.c \
            srcs/window/mlx_hooks.c \
@@ -47,6 +48,8 @@ SRCS     = srcs/main.c \
 		   srcs/intersect/plane.c \
 		   srcs/intersect/cylinder.c \
 		   srcs/intersect/cylinder_utils.c \
+		   srcs/intersect/cone.c \
+		   srcs/intersect/triangle.c \
            srcs/shading/lighting.c \
            srcs/shading/color.c \
 		   srcs/shading/diffuse.c \
