@@ -21,8 +21,10 @@ This project is an introduction to the beautiful world of Ray Tracing, designed 
   Supports configurable material properties:
   - Specular coefficient
   - Shininess
-  - Reflection
+  - Reflectivity
   - Transparency
+  - Index of refraction
+  - Roughness
   - Checkerboard textures
 
 - **Interactive Camera Controls**
