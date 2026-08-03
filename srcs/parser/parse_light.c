@@ -6,7 +6,7 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 16:51:23 by jinliang          #+#    #+#             */
-/*   Updated: 2026/06/03 16:51:25 by jinliang         ###   ########.fr       */
+/*   Updated: 2026/08/02 19:54:04 by jinliang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void    parse_light(char **tokens, t_scene *scene)
         error_exit("light brightness must be in [0.0, 1.0]");
     light->color = parse_color(tokens[3]);
     light->next = NULL;
-    /* append to list */
     if (!scene->lights)
         scene->lights = light;
     else
