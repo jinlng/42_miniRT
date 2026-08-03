@@ -55,8 +55,8 @@ A scene file describes the camera, lights, objects and optional materials.
 The parser accepts optional material parameters after the required object parameters.
 Optional parameters must follow the color field and are parsed from left to right.
 
-#### Basic Structure (can only be defined once)
-
+#### Basic Structure
+Ambient and Camera can only be defined once.
 ```text
 A <ambient_ratio> <r,g,b>
 
