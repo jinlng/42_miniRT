@@ -22,7 +22,6 @@ void	mlx_put_pixel(t_mlx *mlx, int x, int y, t_color color)
 
 	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 		return ;
-	/* convert [0.0,1.0] → [0,255] only here, nowhere else */
 	argb = (0 << 24) | ((int)(color.r * 255.999) << 16)
 		| ((int)(color.g * 255.999) << 8) | (int)(color.b * 255.999);
 	dst = mlx->addr + (y * mlx->line_len + x * (mlx->bpp / 8));

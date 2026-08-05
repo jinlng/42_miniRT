@@ -49,6 +49,7 @@ SRCS     = srcs/main.c \
 		   srcs/intersect/cylinder.c \
 		   srcs/intersect/cylinder_utils.c \
 		   srcs/intersect/cone.c \
+		   srcs/intersect/cone_utils.c \
 		   srcs/intersect/triangle.c \
            srcs/shading/lighting.c \
            srcs/shading/color.c \

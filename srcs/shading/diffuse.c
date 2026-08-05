@@ -31,13 +31,3 @@ t_color	diffuse_light(t_hit *hit, t_light *light)
 ** 1.0 when light hits perpendicularly, 0.0 at grazing.*/
 // static t_color  diffuse_light(t_hit *hit, t_light *light)
 // {
-//     t_vec3  to_light;
-//     double  diff;
-
-//     to_light = vec3_norm(vec3_sub(light->pos, hit->point));
-//     diff     = vec3_dot(hit->normal, to_light);
-//     if (diff < 0.0)
-//         diff = 0.0;
-//     diff *= light->brightness;
-//     return (color_scale(hit->color, diff));
-// }

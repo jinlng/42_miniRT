@@ -25,5 +25,5 @@ void	mlx_setup(t_app *app)
 		error_exit("mlx_new_image failed");
 	app->mlx.addr = mlx_get_data_addr(app->mlx.img, &app->mlx.bpp,
 			&app->mlx.line_len, &app->mlx.endian);
-	app->is_locked = 1; /* Initialize the lock state to locked */
+	app->is_locked = 1;
 }

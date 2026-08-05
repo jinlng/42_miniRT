@@ -19,23 +19,22 @@ int	mouse_hook(int button, int x, int y, void *param)
 	app = (t_app *)param;
 	(void)x;
 	(void)y;
-	if (app->is_locked) /* 如果锁定状态，忽略鼠标滚轮 */
+	if (app->is_locked)
 		return (0);
-	if (button == 4) // 滚轮向上 -> 视野变窄 -> 放大
+	if (button == 4)
 	{
 		app->scene.camera.fov -= 5;
-		if (app->scene.camera.fov < 1) // 限制最小 FOV 避免画面反转
+		if (app->scene.camera.fov < 1)
 			app->scene.camera.fov = 1;
 	}
-	else if (button == 5) // 滚轮向下 -> 视野变宽 -> 缩小
+	else if (button == 5)
 	{
 		app->scene.camera.fov += 5;
-		if (app->scene.camera.fov > 179) // 限制最大 FOV 避免拉伸畸变
+		if (app->scene.camera.fov > 179)
 			app->scene.camera.fov = 179;
 	}
 	else
 		return (0);
-	// 重新计算相机基底并渲染
 	render(app);
 	return (0);
 }
@@ -46,9 +45,9 @@ int	key_handler(int keycode, void *param)
 	double	move_speed;
 
 	app = (t_app *)param;
-	if (keycode == KEY_ESC) /* ESC 键退出 */
+	if (keycode == KEY_ESC)
 		close_handler(app);
-	if (keycode == KEY_SPACE) /* 空格键切换锁定状态 */
+	if (keycode == KEY_SPACE)
 	{
 		app->is_locked = !app->is_locked;
 		if (app->is_locked)
@@ -57,9 +56,9 @@ int	key_handler(int keycode, void *param)
 			ft_putstr_fd("🔓 Camera Unlocked\n", 1);
 		return (0);
 	}
-	if (app->is_locked) /* 如果锁定状态，忽略移动按键 */
+	if (app->is_locked)
 		return (0);
-	move_speed = 0.5; /* 每次移动的距离，可根据需要调整 */
+	move_speed = 0.5;
 	if (keycode == 119 || keycode == 115 || keycode == 100 || keycode == 97)
 	{
 		move_camera(keycode, &app->scene.camera, move_speed);

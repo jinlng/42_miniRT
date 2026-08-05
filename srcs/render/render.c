@@ -22,8 +22,6 @@ static t_color	background(t_ray ray)
 	t_color	white;
 	t_color	blue;
 
-	// white = (t_color){255, 255, 255};
-	// blue  = (t_color){128, 178, 255};
 	white = (t_color){1.0, 1.0, 1.0};
 	blue = (t_color){0.5, 0.7, 1.0};
 	t = (ray.dir.y + 1.0) * 0.5;
@@ -32,12 +30,7 @@ static t_color	background(t_ray ray)
 
 // t_color ray_color(t_ray ray, t_scene *scene)
 // {
-//     t_hit   hit;
 
-//     if (intersect_scene(ray, scene, &hit))
-//         return (shade(&hit, scene, ray));
-//     return (background(ray));
-// }
 t_color	ray_color(t_ray ray, t_scene *scene, int depth)
 {
 	t_hit	hit;
@@ -75,28 +68,12 @@ static void	render_pixel(t_app *app, t_camera_basis *basis, int x, int y)
 		j = -1;
 		while (++j < 2)
 		{
-			/* ** 当 i, j 为 0 或 1 时：
-			** (i + 0.5) / 2.0 分别等于 0.25 和 0.75 */
 			total = color_add(total, get_sample_color(app, basis, x + (i + 0.5)
 						/ 2.0, y + (j + 0.5) / 2.0));
 		}
 	}
 	mlx_put_pixel(&app->mlx, x, y, color_scale(total, 0.25));
 }
-
-// static void	render_pixel(t_app *app, t_camera_basis *basis, int x, int y)
-// {
-// 	double	u;
-// 	double	v;
-// 	t_ray	ray;
-// 	t_color	color;
-
-// 	u = (x + 0.5) / (double)WIDTH;
-// 	v = 1.0 - (y + 0.5) / (double)HEIGHT;
-// 	ray = get_ray(basis, u, v);
-// 	color = ray_color(ray, &app->scene);
-// 	mlx_put_pixel(&app->mlx, x, y, color);
-// }
 
 void	render(t_app *app)
 {
@@ -114,32 +91,3 @@ void	render(t_app *app)
 	}
 	mlx_put_image_to_window(app->mlx.ptr, app->mlx.win, app->mlx.img, 0, 0);
 }
-
-// void    render(t_app *app)
-// {
-//     t_camera_basis  basis;
-//     t_ray           ray;
-//     t_color         color;
-//     double          u;
-//     double          v;
-//     int             x;
-//     int             y;
-
-//     basis = build_camera_basis(&app->scene.camera);
-//     y = 0;
-//     while (y < HEIGHT)
-//     {
-//         x = 0;
-//         while (x < WIDTH)
-//         {
-//             u = (x + 0.5) / (double)WIDTH;
-//             v = 1.0 - (y + 0.5) / (double)HEIGHT;
-//             ray = get_ray(&basis, u, v);
-//             color = ray_color(ray, &app->scene);
-//             mlx_put_pixel(&app->mlx, x, y, color);
-//             x++;
-//         }
-//         y++;
-//     }
-//     mlx_put_image_to_window(app->mlx.ptr, app->mlx.win, app->mlx.img, 0, 0);
-// }

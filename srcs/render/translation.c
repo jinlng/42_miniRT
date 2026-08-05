@@ -34,12 +34,12 @@ void	move_camera(int key, t_camera *cam, double speed)
 	t_vec3	right;
 
 	right = get_cam_right(cam->dir);
-	if (key == 119) /* W: 前 */
+	if (key == 119)
 		cam->pos = vec3_add(cam->pos, vec3_scale(cam->dir, speed));
-	else if (key == 115) /* S: 后 */
+	else if (key == 115)
 		cam->pos = vec3_sub(cam->pos, vec3_scale(cam->dir, speed));
-	else if (key == 100) /* D: 右 */
+	else if (key == 100)
 		cam->pos = vec3_add(cam->pos, vec3_scale(right, speed));
-	else if (key == 97) /* A: 左 */
+	else if (key == 97)
 		cam->pos = vec3_sub(cam->pos, vec3_scale(right, speed));
 }
