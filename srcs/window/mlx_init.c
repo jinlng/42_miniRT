@@ -6,7 +6,7 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 14:16:21 by jinliang          #+#    #+#             */
-/*   Updated: 2026/07/16 17:33:49 by jinliang         ###   ########.fr       */
+/*   Updated: 2026/08/05 23:48:06 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ void	mlx_setup(t_app *app)
 		error_exit("mlx_new_image failed");
 	app->mlx.addr = mlx_get_data_addr(app->mlx.img, &app->mlx.bpp,
 			&app->mlx.line_len, &app->mlx.endian);
-	app->is_locked = 1; /* Initialize the lock state to locked */
+	app->is_locked = 1;
 }

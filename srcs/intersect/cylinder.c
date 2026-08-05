@@ -6,7 +6,7 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 14:28:05 by jinliang          #+#    #+#             */
-/*   Updated: 2026/07/21 16:13:47 by jinliang         ###   ########.fr       */
+/*   Updated: 2026/08/05 23:48:01 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,28 @@ static int	hit_body(t_ray ray, t_object *obj, t_hit *hit)
 /*
 ** Intersects ray with a cylinder cap.
 */
-static int	hit_cap(t_ray ray, t_object *obj, t_vec3 center, t_vec3 normal,
-		t_hit *hit)
+static void	cap_plane(t_object *obj, int top, t_vec3 *center, t_vec3 *normal)
+{
+	if (top)
+	{
+		*center = obj->cylinder.top_center;
+		*normal = obj->cylinder.axis;
+	}
+	else
+	{
+		*center = obj->cylinder.bottom_center;
+		*normal = vec3_negate(obj->cylinder.axis);
+	}
+}
+
+static int	hit_cap(t_ray ray, t_object *obj, t_hit *hit, int top)
 {
 	double	denom;
 	t_vec3	p;
+	t_vec3	center;
+	t_vec3	normal;
 
+	cap_plane(obj, top, &center, &normal);
 	denom = vec3_dot(ray.dir, normal);
 	if (fabs(denom) < EPSILON)
 		return (0);
@@ -73,14 +89,12 @@ int	intersect_cylinder(t_ray ray, t_object *obj, t_hit *hit)
 		best = tmp.t;
 		*hit = tmp;
 	}
-	if (hit_cap(ray, obj, obj->cylinder.top_center, obj->cylinder.axis, &tmp)
-		&& tmp.t < best)
+	if (hit_cap(ray, obj, &tmp, 1) && tmp.t < best)
 	{
 		best = tmp.t;
 		*hit = tmp;
 	}
-	if (hit_cap(ray, obj, obj->cylinder.bottom_center,
-			vec3_negate(obj->cylinder.axis), &tmp) && tmp.t < best)
+	if (hit_cap(ray, obj, &tmp, 0) && tmp.t < best)
 		*hit = tmp;
 	return (best < INFINITY);
 }
