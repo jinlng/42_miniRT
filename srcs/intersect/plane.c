@@ -18,9 +18,7 @@ int	intersect_plane(t_ray ray, t_object *obj, t_hit *hit)
 	double	t;
 	t_vec3	to_plane;
 
-	// t_vec3  outward_normal;
 	denom = vec3_dot(ray.dir, obj->plane.normal);
-	/* ray parallel to plane — no intersection */
 	if (fabs(denom) < EPSILON)
 		return (0);
 	to_plane = vec3_sub(obj->plane.point, ray.origin);
@@ -29,9 +27,7 @@ int	intersect_plane(t_ray ray, t_object *obj, t_hit *hit)
 		return (0);
 	hit->t = t;
 	hit->point = ray_at(ray, t);
-	// hit->color = obj->color;
 	hit->mat = &obj->mat;
-	/* normal always faces the incoming ray */
 	if (denom < 0)
 		hit->normal = obj->plane.normal;
 	else

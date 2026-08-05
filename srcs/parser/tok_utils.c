@@ -55,9 +55,9 @@ char	**split_line(const char *line)
 	return (tokens);
 }
 
-void free_tokens(char **tokens)
+void	free_tokens(char **tokens)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tokens[i])
@@ -65,9 +65,9 @@ void free_tokens(char **tokens)
 	free(tokens);
 }
 
-int token_count(char **tokens)
+int	token_count(char **tokens)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tokens[i])

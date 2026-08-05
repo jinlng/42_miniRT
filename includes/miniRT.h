@@ -128,19 +128,19 @@ typedef struct s_cylinder
 
 typedef struct s_cone
 {
-    t_vec3  apex;
-    t_vec3  axis;
-    double  radius;
-    double  height;
-}   t_cone;
+	t_vec3			apex;
+	t_vec3			axis;
+	double			radius;
+	double			height;
+}					t_cone;
 
 typedef struct s_triangle
 {
-    t_vec3  v0;
-    t_vec3  v1;
-    t_vec3  v2;
-    t_vec3  normal;
-}   t_triangle;
+	t_vec3			v0;
+	t_vec3			v1;
+	t_vec3			v2;
+	t_vec3			normal;
+}					t_triangle;
 
 typedef enum e_obj_type
 {
@@ -148,7 +148,7 @@ typedef enum e_obj_type
 	OBJ_PLANE,
 	OBJ_CYLINDER,
 	OBJ_CONE,
-    OBJ_TRIANGLE,
+	OBJ_TRIANGLE,
 }					t_obj_type;
 
 typedef struct s_object
@@ -176,6 +176,9 @@ typedef struct s_quad
 	double			sqrt_disc;
 	t_vec3			d;
 	t_vec3			f;
+	double			m;
+	double			n;
+	double			root;
 }					t_quad;
 
 /* ── Scene ────────────────────────────────────────────────────── */
@@ -256,13 +259,13 @@ void				parse_light(char **tokens, t_scene *scene);
 void				parse_material(char **tokens, int color_idx,
 						t_material *mat);
 t_material			default_material(t_color color);
-t_object	*new_object(t_obj_type type);
-void	append_object(t_scene *scene, t_object *obj);
+t_object			*new_object(t_obj_type type);
+void				append_object(t_scene *scene, t_object *obj);
 void				parse_sphere(char **tokens, t_scene *scene);
 void				parse_plane(char **tokens, t_scene *scene);
 void				parse_cylinder(char **tokens, t_scene *scene);
-void    parse_cone(char **tokens, t_scene *scene);
-void    parse_triangle(char **tokens, t_scene *scene);
+void				parse_cone(char **tokens, t_scene *scene);
+void				parse_triangle(char **tokens, t_scene *scene);
 /* ── Parse utils ──────────────────────────────────────────────── */
 int					parse_sign(const char **str);
 double				parse_integer(const char **str);
@@ -304,9 +307,12 @@ int					check_body_hit(t_ray ray, t_object *obj, t_hit *hit,
 void				set_cap_hit(t_ray ray, t_object *obj, t_hit *hit,
 						t_vec3 normal);
 int					intersect_cylinder(t_ray ray, t_object *obj, t_hit *hit);
-int intersect_triangle(t_ray ray, t_object *obj, t_hit *hit);
-int intersect_cone(t_ray ray, t_object *obj, t_hit *hit);
-
+int					intersect_triangle(t_ray ray, t_object *obj, t_hit *hit);
+int					intersect_cone(t_ray ray, t_object *obj, t_hit *hit);
+void				cone_quad(t_ray ray, t_object *obj, t_quad *q);
+t_vec3				cone_body_normal(t_object *obj, t_vec3 point, double proj);
+int					check_cone_body(t_ray ray, t_object *obj, t_hit *hit,
+						t_quad *q);
 
 /* ── Shading prototypes ───────────────────────────────────────── */
 t_color				shade(t_hit *hit, t_scene *scene, t_ray ray);

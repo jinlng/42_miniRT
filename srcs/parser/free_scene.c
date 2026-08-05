@@ -12,25 +12,25 @@
 
 #include "miniRT.h"
 
-void    free_scene(t_scene *scene)
+void	free_scene(t_scene *scene)
 {
-    t_object    *obj;
-    t_object    *next_obj;
-    t_light     *light;
-    t_light     *next_light;
+	t_object	*obj;
+	t_object	*next_obj;
+	t_light		*light;
+	t_light		*next_light;
 
-    obj = scene->objects;
-    while (obj)
-    {
-        next_obj = obj->next;
-        free(obj);
-        obj = next_obj;
-    }
-    light = scene->lights;
-    while (light)
-    {
-        next_light = light->next;
-        free(light);
-        light = next_light;
-    }
+	obj = scene->objects;
+	while (obj)
+	{
+		next_obj = obj->next;
+		free(obj);
+		obj = next_obj;
+	}
+	light = scene->lights;
+	while (light)
+	{
+		next_light = light->next;
+		free(light);
+		light = next_light;
+	}
 }

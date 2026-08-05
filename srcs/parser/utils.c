@@ -55,43 +55,13 @@ char	**split_line(const char *line)
 	return (tokens);
 }
 
-// /* split on whitespace, return NULL-terminated array */
+//
 // char **split_line(const char *line)
 // {
-// 	char **tokens;
-// 	char *buf;
-// 	char *tok;
-// 	int count;
-// 	int i;
 
-// 	buf = strdup(line);
-// 	count = 0;
-// 	tok = strtok(buf, " \t\r\n");
-// 	while (tok)
-// 	{
-// 		count++;
-// 		tok = strtok(NULL, " \t\r\n");
-// 	}
-// 	free(buf);
-// 	tokens = malloc(sizeof(char *) * (count + 1));
-// 	if (!tokens)
-// 		error_exit("malloc failed");
-// 	buf = strdup(line);
-// 	tok = strtok(buf, " \t\r\n");
-// 	i = 0;
-// 	while (tok)
-// 	{
-// 		tokens[i++] = strdup(tok);
-// 		tok = strtok(NULL, " \t\r\n");
-// 	}
-// 	tokens[i] = NULL;
-// 	free(buf);
-// 	return (tokens);
-// }
-
-void free_tokens(char **tokens)
+void	free_tokens(char **tokens)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tokens[i])
@@ -99,9 +69,9 @@ void free_tokens(char **tokens)
 	free(tokens);
 }
 
-int token_count(char **tokens)
+int	token_count(char **tokens)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tokens[i])
