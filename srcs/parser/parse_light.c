@@ -26,6 +26,9 @@ void    parse_light(char **tokens, t_scene *scene)
     if (light->brightness < 0.0 || light->brightness > 1.0)
         error_exit("light brightness must be in [0.0, 1.0]");
     light->color = parse_color(tokens[3]);
+    light->kc = 1.0;
+    light->kl = 0.0;
+    light->kq = 0.0;
     light->next = NULL;
     if (!scene->lights)
         scene->lights = light;
