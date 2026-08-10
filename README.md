@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by jinliang*
+*This project has been created as part of the 42 curriculum by jinliang & azaytsev*
 
 # miniRT
 
@@ -399,4 +399,4 @@ To smooth jagged edges, each pixel is divided into a $2 \times 2$ grid. Four sub
 
 
 ## Author
-GitHub: [@jinlng](https://github.com/jinlng)
+GitHub: [@jinlng](https://github.com/jinlng) & [@OrbitingBucket](https://github.com/OrbitingBucket)
