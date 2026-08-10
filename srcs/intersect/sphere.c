@@ -6,7 +6,7 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 14:25:19 by jinliang          #+#    #+#             */
-/*   Updated: 2026/07/21 15:53:08 by jinliang         ###   ########.fr       */
+/*   Updated: 2026/08/05 23:48:02 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,6 @@ static void	set_face_normal(t_hit *hit, t_ray ray, t_vec3 outward_normal)
 
 // static double	get_sphere_t(double a, double b, double c)
 // {
-// 	double	disc;
-// 	double	t;
-
-// 	disc = b * b - 4.0 * a * c;
-// 	if (disc < 0)
-// 		return (-1);
-// 	t = (-b - sqrt(disc)) / (2.0 * a);
-// 	if (t < EPSILON)
-// 		t = (-b + sqrt(disc)) / (2.0 * a);
-// 	if (t < EPSILON)
-// 		return (-1);
-// 	return (t);
-// }
 
 int	intersect_sphere(t_ray ray, t_object *obj, t_hit *hit)
 {

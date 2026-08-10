@@ -6,7 +6,7 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 16:33:08 by jinliang          #+#    #+#             */
-/*   Updated: 2026/08/02 19:46:26 by jinliang         ###   ########.fr       */
+/*   Updated: 2026/08/05 23:48:05 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ char	**split_line(const char *line)
 	return (tokens);
 }
 
-void free_tokens(char **tokens)
+void	free_tokens(char **tokens)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tokens[i])
@@ -65,9 +65,9 @@ void free_tokens(char **tokens)
 	free(tokens);
 }
 
-int token_count(char **tokens)
+int	token_count(char **tokens)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tokens[i])

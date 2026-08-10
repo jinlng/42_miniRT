@@ -6,7 +6,7 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 16:05:29 by jinliang          #+#    #+#             */
-/*   Updated: 2026/08/03 18:01:47 by jinliang         ###   ########.fr       */
+/*   Updated: 2026/08/05 23:48:01 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,19 +128,19 @@ typedef struct s_cylinder
 
 typedef struct s_cone
 {
-    t_vec3  apex;
-    t_vec3  axis;
-    double  radius;
-    double  height;
-}   t_cone;
+	t_vec3			apex;
+	t_vec3			axis;
+	double			radius;
+	double			height;
+}					t_cone;
 
 typedef struct s_triangle
 {
-    t_vec3  v0;
-    t_vec3  v1;
-    t_vec3  v2;
-    t_vec3  normal;
-}   t_triangle;
+	t_vec3			v0;
+	t_vec3			v1;
+	t_vec3			v2;
+	t_vec3			normal;
+}					t_triangle;
 
 typedef enum e_obj_type
 {
@@ -148,7 +148,7 @@ typedef enum e_obj_type
 	OBJ_PLANE,
 	OBJ_CYLINDER,
 	OBJ_CONE,
-    OBJ_TRIANGLE,
+	OBJ_TRIANGLE,
 }					t_obj_type;
 
 typedef struct s_object
@@ -176,6 +176,9 @@ typedef struct s_quad
 	double			sqrt_disc;
 	t_vec3			d;
 	t_vec3			f;
+	double			m;
+	double			n;
+	double			root;
 }					t_quad;
 
 /* ── Scene ────────────────────────────────────────────────────── */
@@ -256,13 +259,13 @@ void				parse_light(char **tokens, t_scene *scene);
 void				parse_material(char **tokens, int color_idx,
 						t_material *mat);
 t_material			default_material(t_color color);
-t_object	*new_object(t_obj_type type);
-void	append_object(t_scene *scene, t_object *obj);
+t_object			*new_object(t_obj_type type);
+void				append_object(t_scene *scene, t_object *obj);
 void				parse_sphere(char **tokens, t_scene *scene);
 void				parse_plane(char **tokens, t_scene *scene);
 void				parse_cylinder(char **tokens, t_scene *scene);
-void    parse_cone(char **tokens, t_scene *scene);
-void    parse_triangle(char **tokens, t_scene *scene);
+void				dispatch(char **tokens, t_scene *scene);
+void				check_count(char **tokens, int n, char *msg);
 /* ── Parse utils ──────────────────────────────────────────────── */
 int					parse_sign(const char **str);
 double				parse_integer(const char **str);
@@ -304,16 +307,13 @@ int					check_body_hit(t_ray ray, t_object *obj, t_hit *hit,
 void				set_cap_hit(t_ray ray, t_object *obj, t_hit *hit,
 						t_vec3 normal);
 int					intersect_cylinder(t_ray ray, t_object *obj, t_hit *hit);
-int intersect_triangle(t_ray ray, t_object *obj, t_hit *hit);
-int intersect_cone(t_ray ray, t_object *obj, t_hit *hit);
-
+int					hit_object(t_ray ray, t_object *obj, t_hit *tmp);
 
 /* ── Shading prototypes ───────────────────────────────────────── */
 t_color				shade(t_hit *hit, t_scene *scene, t_ray ray);
 t_color				ambient_light(t_hit *hit, t_ambient *ambient);
 t_color				diffuse_light(t_hit *hit, t_light *light);
 int					in_shadow(t_scene *scene, t_hit *hit, t_light *light);
-t_color				specular_light(t_hit *hit, t_light *light, t_ray view_ray);
 double				attenuation(t_light *light, t_vec3 point);
 t_color				color_scale(t_color c, double t);
 t_color				color_add(t_color a, t_color b);

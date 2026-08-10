@@ -6,7 +6,7 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 15:01:54 by jinliang          #+#    #+#             */
-/*   Updated: 2026/07/16 16:26:09 by jinliang         ###   ########.fr       */
+/*   Updated: 2026/08/05 23:48:05 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,3 @@ t_color	diffuse_light(t_hit *hit, t_light *light)
 ** 1.0 when light hits perpendicularly, 0.0 at grazing.*/
 // static t_color  diffuse_light(t_hit *hit, t_light *light)
 // {
-//     t_vec3  to_light;
-//     double  diff;
-
-//     to_light = vec3_norm(vec3_sub(light->pos, hit->point));
-//     diff     = vec3_dot(hit->normal, to_light);
-//     if (diff < 0.0)
-//         diff = 0.0;
-//     diff *= light->brightness;
-//     return (color_scale(hit->color, diff));
-// }

@@ -6,16 +6,15 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 16:51:23 by jinliang          #+#    #+#             */
-/*   Updated: 2026/08/02 19:54:04 by jinliang         ###   ########.fr       */
+/*   Updated: 2026/08/05 23:48:04 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void    parse_light(char **tokens, t_scene *scene)
+void	parse_light(char **tokens, t_scene *scene)
 {
-    t_light *light;
-    t_light *cursor;
+	t_light	*light;
 
     if (token_count(tokens) != 4)
         error_exit("light: expected 'L <x,y,z> <brightness> <r,g,b>'");

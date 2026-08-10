@@ -38,22 +38,47 @@ This project is an introduction to the beautiful world of Ray Tracing, designed 
 
 ### Compile the project:
 
+The mandatory part and the bonus part are built separately and produce two
+different programs.
+
 ```bash
-make
+make            # builds ./miniRT, mandatory part only
+make bonus      # builds ./miniRT_bonus, everything below plus the bonuses
 ```
-
-
 
 ### Run a scene:
 Execute the program by passing a valid `.rt` scene configuration file as an argument:
 ```bash
 ./miniRT scenes/<rt_file_name>.rt
+./miniRT_bonus scenes/bonus/<rt_file_name>.rt
 ```
+
+Mandatory scenes live in `scenes/`, bonus scenes in `scenes/bonus/`.
+
+### Mandatory part and bonus part
+
+| Feature | Mandatory (`miniRT`) | Bonus (`miniRT_bonus`) |
+| :--- | :---: | :---: |
+| Sphere, plane, cylinder | yes | yes |
+| Ambient and diffuse lighting | yes | yes |
+| Hard shadows | yes | yes |
+| Camera controls and zoom | yes | yes |
+| Cone (`co`), triangle (`tr`) | no | yes |
+| Specular highlights (Phong) | no | yes |
+| Optional material parameters | no | yes |
+| Several lights (`L` more than once) | no | yes |
+
+The mandatory program accepts only `A`, `C`, `L`, `sp`, `pl` and `cy`, requires
+exactly the parameters listed below for each element, and allows a single `L`.
+Anything else is reported as an error. The bonus program adds the identifiers
+and the optional parameters described further down.
+
 ### Scene File Format (.rt)
 A scene file describes the camera, lights, objects and optional materials.
 
-The parser accepts optional material parameters after the required object parameters.
-Optional parameters must follow the color field and are parsed from left to right.
+The bonus program accepts optional material parameters after the required object
+parameters. Optional parameters must follow the color field and are parsed from
+left to right. The mandatory program rejects them.
 
 #### Basic Structure
 Ambient and Camera can only be defined once.
@@ -74,6 +99,9 @@ L <x,y,z> <brightness> <r,g,b>
 
 
 #### Objects
+The three objects below exist in both programs. The optional material
+parameters are accepted by the bonus program only.
+
 - **Sphere**
 ```text
 sp <x,y,z> <diameter> <r,g,b> (optionals: [ks] [shininess] [reflectivity] [transparency] [ior] [checkerboard])
@@ -86,6 +114,9 @@ pl <x,y,z> <nx,ny,nz> <r,g,b> (optionals: [material parameters])
 ```text
 cy <x,y,z> <nx,ny,nz> <diameter> <height> <r,g,b> (optionals: [material parameters])
 ```
+
+The two objects below exist in the bonus program only.
+
 - **Cone**
 ```text
 co <apex x,y,z> <ax,ay,az> <radius> <height> <r,g,b> (optionals: [material parameters])

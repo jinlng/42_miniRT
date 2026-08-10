@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_utils.c                                        :+:      :+:    :+:   */
+/*   shade_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/14 16:20:39 by jinliang          #+#    #+#             */
+/*   Created: 2026/08/05 10:00:00 by jinliang          #+#    #+#             */
 /*   Updated: 2026/08/05 23:48:06 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "miniRT_bonus.h"
 
-/* Write one pixel into the image buffer.
-** Never call mlx_pixel_put — it's extremely slow (one syscall per pixel).
-** We write into the raw buffer and flush once per frame instead.*/
-void	mlx_put_pixel(t_mlx *mlx, int x, int y, t_color color)
+/* Full shading: ambient + diffuse over every light.
+** Specular term is stubbed as a comment — drop it in for bonus.*/
+t_color	shade(t_hit *hit, t_scene *scene, t_ray ray)
 {
-	char	*dst;
-	int		argb;
+	t_color	final;
+	t_light	*light;
 
-	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
-		return ;
-	argb = (0 << 24) | ((int)(color.r * 255.999) << 16)
-		| ((int)(color.g * 255.999) << 8) | (int)(color.b * 255.999);
-	dst = mlx->addr + (y * mlx->line_len + x * (mlx->bpp / 8));
-	*(unsigned int *)dst = argb;
+	final = ambient_light(hit, &scene->ambient);
+	light = scene->lights;
+	while (light)
+	{
+		if (!in_shadow(scene, hit, light))
+		{
+			final = color_add(final, diffuse_light(hit, light));
+			final = color_add(final, specular_light(hit, light, ray));
+		}
+		light = light->next;
+	}
+	return (color_clamp(final));
 }

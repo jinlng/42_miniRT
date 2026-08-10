@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   specular.c                                         :+:      :+:    :+:   */
+/*   specular_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 14:10:23 by jinliang          #+#    #+#             */
-/*   Updated: 2026/07/16 17:08:47 by jinliang         ###   ########.fr       */
+/*   Updated: 2026/08/05 23:48:06 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "miniRT_bonus.h"
 
 /*
 ** Phong specular — reflects the light source itself, not the object color.

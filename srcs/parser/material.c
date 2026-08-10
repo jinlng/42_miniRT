@@ -1,43 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3.c                                             :+:      :+:    :+:   */
+/*   material.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/03 16:37:56 by jinliang          #+#    #+#             */
+/*   Created: 2026/08/05 10:00:00 by jinliang          #+#    #+#             */
 /*   Updated: 2026/08/05 23:48:03 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_vec3	vec3(double x, double y, double z)
+t_material	default_material(t_color color)
 {
-	t_vec3	v;
+	t_material	m;
 
-	v.x = x;
-	v.y = y;
-	v.z = z;
-	return (v);
-}
-
-t_vec3	vec3_add(t_vec3 a, t_vec3 b)
-{
-	return (vec3(a.x + b.x, a.y + b.y, a.z + b.z));
-}
-
-t_vec3	vec3_sub(t_vec3 a, t_vec3 b)
-{
-	return (vec3(a.x - b.x, a.y - b.y, a.z - b.z));
-}
-
-t_vec3	vec3_scale(t_vec3 v, double t)
-{
-	return (vec3(v.x * t, v.y * t, v.z * t));
-}
-
-t_vec3	vec3_negate(t_vec3 v)
-{
-	return (vec3(-v.x, -v.y, -v.z));
+	m.color = color;
+	m.ka = 0.1;
+	m.kd = 0.9;
+	m.ks = 0.3;
+	m.shininess = 32.0;
+	m.reflectivity = 0.0;
+	m.transparency = 0.0;
+	m.ior = 1.0;
+	m.roughness = 0.0;
+	m.checkerboard = 0;
+	m.checker_size = 1.0;
+	return (m);
 }
