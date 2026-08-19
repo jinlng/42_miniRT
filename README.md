@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by jinliang & azaytsev*
+*This project has been created as part of the 42 curriculum by jinliang, azaytsev.*
 
 # miniRT
 
@@ -34,7 +34,7 @@ This project is an introduction to the beautiful world of Ray Tracing, designed 
 
 - **Custom Scene Parsing**: Parse scenes dynamically from `.rt` configuration files with strict error handling.
 
-## Instruction
+## Instructions
 
 ### Compile the project:
 
@@ -144,6 +144,11 @@ Material parameters are optional and parsed in this order:
 - *Specular Coefficient determines the total amount of shiny light reflected off a surface.*
 - *Specular Exponent dictates how "focused" or spread out the shiny reflection is. It is heavily tied to surface roughness.*
 
+Note that `ks` and `shininess` affect the rendered image today. The other
+parameters (`reflectivity`, `transparency`, `ior`, `roughness`,
+`checkerboard`, `checker_size`) are parsed, validated and stored so scenes
+can already declare them, but the shading code does not use them yet.
+
 ### Controls & Keybindings
 
 🔒 By default, camera position and zoom level are **locked** to prevent accidental inputs.
@@ -173,14 +178,6 @@ make clean 		# Remove object files
 make fclean		# Remove object files and executable
 make re			# Recompile from scratch
 ```
-
-## Algorithm
-
-### 1. Architecture & Key Data Structures
-```
-
-```
-
 
 ## Ray Tracing Theory
 
@@ -397,6 +394,10 @@ To smooth jagged edges, each pixel is divided into a $2 \times 2$ grid. Four sub
 - [Ray Tracing: The Rest of Your Life](https://raytracing.github.io/books/RayTracingTheRestOfYourLife.html)
 - [Ray Tracer Challenge](http://raytracerchallenge.com/)
 
+
+### How AI was used
+
+AI tools were used to help write the unit tests and this README.
 
 ## Author
 GitHub: [@jinlng](https://github.com/jinlng) & [@OrbitingBucket](https://github.com/OrbitingBucket)
