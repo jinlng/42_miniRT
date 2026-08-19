@@ -6,7 +6,7 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 10:00:00 by jinliang          #+#    #+#             */
-/*   Updated: 2026/08/05 23:48:06 by azaytsev         ###   ########.fr       */
+/*   Updated: 2026/08/19 14:07:30 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 t_color	shade(t_hit *hit, t_scene *scene, t_ray ray)
 {
 	t_color	final;
+	t_color	contrib;
 	t_light	*light;
 
 	final = ambient_light(hit, &scene->ambient);
@@ -25,8 +26,9 @@ t_color	shade(t_hit *hit, t_scene *scene, t_ray ray)
 	{
 		if (!in_shadow(scene, hit, light))
 		{
-			final = color_add(final, diffuse_light(hit, light));
-			final = color_add(final, specular_light(hit, light, ray));
+			contrib = color_add(diffuse_light(hit, light),
+					specular_light(hit, light, ray));
+			final = color_add(final, color_multiply(contrib, light->color));
 		}
 		light = light->next;
 	}
