@@ -14,44 +14,64 @@
 
 static int	count_tokens(const char *line)
 {
-	char	*buf;
-	char	*tok;
-	int		count;
+	int	count;
+	int	i;
 
-	buf = strdup(line);
-	if (!buf)
-		error_exit("malloc failed");
 	count = 0;
-	tok = strtok(buf, " \t\r\n");
-	while (tok)
+	i = 0;
+	while (line[i])
 	{
-		count++;
-		tok = strtok(NULL, " \t\r\n");
+		while (line[i] && ft_isspace(line[i]))
+			i++;
+		if (line[i])
+			count++;
+		while (line[i] && !ft_isspace(line[i]))
+			i++;
 	}
-	free(buf);
 	return (count);
+}
+
+static char	*word_dup(const char *s, int len)
+{
+	char	*w;
+	int		i;
+
+	w = malloc((size_t)len + 1);
+	if (!w)
+		error_exit("malloc failed");
+	i = 0;
+	while (i < len)
+	{
+		w[i] = s[i];
+		i++;
+	}
+	w[i] = '\0';
+	return (w);
 }
 
 char	**split_line(const char *line)
 {
 	char	**tokens;
-	char	*buf;
-	char	*tok;
 	int		i;
+	int		start;
+	int		t;
 
 	tokens = malloc(sizeof(char *) * (count_tokens(line) + 1));
 	if (!tokens)
 		error_exit("malloc failed");
-	buf = strdup(line);
-	tok = strtok(buf, " \t\r\n");
 	i = 0;
-	while (tok)
+	t = 0;
+	while (line[i])
 	{
-		tokens[i++] = strdup(tok);
-		tok = strtok(NULL, " \t\r\n");
+		while (line[i] && ft_isspace(line[i]))
+			i++;
+		start = i;
+		while (line[i] && !ft_isspace(line[i]))
+			i++;
+		if (i > start)
+			tokens[t++] = word_dup(line + start, i - start);
 	}
-	tokens[i] = NULL;
-	free(buf);
+	tokens[t] = NULL;
 	return (tokens);
 }
 

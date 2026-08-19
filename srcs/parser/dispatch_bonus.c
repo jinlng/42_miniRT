@@ -15,22 +15,22 @@
 static void	unknown_id(char *token)
 {
 	write(2, "Error\nunknown identifier: ", 26);
-	write(2, token, strlen(token));
+	write(2, token, ft_strlen(token));
 	write(2, "\n", 1);
 	exit(1);
 }
 
 static int	dispatch_object(char **tokens, t_scene *scene)
 {
-	if (!strcmp(tokens[0], "sp"))
+	if (!ft_strcmp(tokens[0], "sp"))
 		parse_sphere(tokens, scene);
-	else if (!strcmp(tokens[0], "pl"))
+	else if (!ft_strcmp(tokens[0], "pl"))
 		parse_plane(tokens, scene);
-	else if (!strcmp(tokens[0], "cy"))
+	else if (!ft_strcmp(tokens[0], "cy"))
 		parse_cylinder(tokens, scene);
-	else if (!strcmp(tokens[0], "co"))
+	else if (!ft_strcmp(tokens[0], "co"))
 		parse_cone(tokens, scene);
-	else if (!strcmp(tokens[0], "tr"))
+	else if (!ft_strcmp(tokens[0], "tr"))
 		parse_triangle(tokens, scene);
 	else
 		return (0);
@@ -43,11 +43,11 @@ void	dispatch(char **tokens, t_scene *scene)
 		return ;
 	if (tokens[0][0] == '#')
 		return ;
-	if (!strcmp(tokens[0], "A"))
+	if (!ft_strcmp(tokens[0], "A"))
 		parse_ambient(tokens, scene);
-	else if (!strcmp(tokens[0], "C"))
+	else if (!ft_strcmp(tokens[0], "C"))
 		parse_camera(tokens, scene);
-	else if (!strcmp(tokens[0], "L"))
+	else if (!ft_strcmp(tokens[0], "L"))
 		parse_light(tokens, scene);
 	else if (!dispatch_object(tokens, scene))
 		unknown_id(tokens[0]);

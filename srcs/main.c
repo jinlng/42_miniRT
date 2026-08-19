@@ -17,10 +17,7 @@ int	main(int argc, char **argv)
 	t_app	app;
 
 	if (argc != 2)
-	{
-		write(2, "Usage: ./miniRT <scene.rt>\n", 27);
-		return (1);
-	}
+		error_exit("usage: ./miniRT <scene.rt>");
 	parse_scene(argv[1], &app.scene);
 	mlx_setup(&app);
 	render(&app);
@@ -34,7 +31,7 @@ int	main(int argc, char **argv)
 void	error_exit(const char *msg)
 {
 	write(2, "Error\n", 6);
-	write(2, msg, strlen(msg));
+	write(2, msg, ft_strlen(msg));
 	write(2, "\n", 1);
 	exit(1);
 }
