@@ -32,7 +32,6 @@ COMMON_SRCS = srcs/main.c \
               srcs/parser/parse_camera.c \
               srcs/parser/material.c \
               srcs/parser/parse_objects.c \
-              srcs/parser/parse_objects_bis.c \
               srcs/parser/parse_utils.c \
               srcs/parser/tok_utils.c \
               srcs/parser/parse_num.c \
