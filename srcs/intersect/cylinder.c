@@ -6,7 +6,7 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 14:28:05 by jinliang          #+#    #+#             */
-/*   Updated: 2026/08/05 23:48:01 by azaytsev         ###   ########.fr       */
+/*   Updated: 2026/08/19 12:51:33 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ int	intersect_cylinder(t_ray ray, t_object *obj, t_hit *hit)
 		*hit = tmp;
 	}
 	if (hit_cap(ray, obj, &tmp, 0) && tmp.t < best)
+	{
+		best = tmp.t;
 		*hit = tmp;
+	}
 	return (best < INFINITY);
 }
