@@ -6,7 +6,7 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 16:51:41 by jinliang          #+#    #+#             */
-/*   Updated: 2026/08/19 12:58:00 by azaytsev         ###   ########.fr       */
+/*   Updated: 2026/08/19 12:58:32 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,10 @@ static char	*read_line(int fd, long *total)
 		line[i++] = c;
 	}
 	line[i] = '\0';
-	if (i == 0 && ret == 0)
-	{
-		free(line);
-		return (NULL);
-	}
-	return (line);
+	if (i > 0 || ret > 0)
+		return (line);
+	free(line);
+	return (NULL);
 }
 
 static int	has_rt_extension(const char *file)
