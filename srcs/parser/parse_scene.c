@@ -6,14 +6,21 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 16:51:41 by jinliang          #+#    #+#             */
-/*   Updated: 2026/08/19 12:51:32 by azaytsev         ###   ########.fr       */
+/*   Updated: 2026/08/19 12:58:00 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
 /* read one line from fd into a heap buffer — basic gnl replacement */
-static char	*read_line(int fd)
+static void	bump_total(long *total)
+{
+	*total += 1;
+	if (*total > 1048576)
+		error_exit("scene file too large");
+}
+
+static char	*read_line(int fd, long *total)
 {
 	char	*line;
 	char	c;
@@ -31,6 +38,7 @@ static char	*read_line(int fd)
 			error_exit("read error");
 		if (ret == 0 || c == '\n')
 			break ;
+		bump_total(total);
 		line[i++] = c;
 	}
 	line[i] = '\0';
@@ -63,12 +71,9 @@ static void	read_all(int fd, t_scene *scene)
 	total = 0;
 	while (1)
 	{
-		line = read_line(fd);
+		line = read_line(fd, &total);
 		if (!line)
 			break ;
-		total += 4096;
-		if (total > 1048576)
-			error_exit("scene file too large");
 		tokens = split_line(line);
 		free(line);
 		if (tokens && tokens[0])
