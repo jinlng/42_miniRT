@@ -27,5 +27,6 @@ int					check_cone_body(t_ray ray, t_object *obj, t_hit *hit,
 
 /* ── Bonus shading ────────────────────────────────────────────── */
 t_color				specular_light(t_hit *hit, t_light *light, t_ray view_ray);
+void				apply_checker(t_hit *hit, t_material *tmp);
 
 #endif
