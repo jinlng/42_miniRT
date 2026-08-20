@@ -71,10 +71,8 @@ void	parse_cylinder(char **tokens, t_scene *scene)
 {
 	t_object	*obj;
 
-	check_count(tokens,
-				6,
-				"cylinder: expected "
-				"'cy <x,y,z> <ax,ay,az> <diameter> <height> <r,g,b>'");
+	check_count(tokens, 6, "cylinder: expected "
+		"'cy <x,y,z> <ax,ay,az> <diameter> <height> <r,g,b>'");
 	obj = new_object(OBJ_CYLINDER);
 	obj->cylinder.center = parse_vec3(tokens[1]);
 	obj->cylinder.axis = parse_normal(tokens[2]);
