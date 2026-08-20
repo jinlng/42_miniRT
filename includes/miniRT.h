@@ -17,7 +17,6 @@
 # include <fcntl.h>
 # include <math.h>
 # include <mlx.h>
-# include <string.h>
 # include <unistd.h>
 
 # define EPSILON 1e-6
@@ -271,6 +270,8 @@ int					parse_sign(const char **str);
 double				parse_integer(const char **str);
 double				parse_fraction(const char **str);
 double				ft_strtod(const char *str, const char **endptr);
+int					valid_num(const char *s);
+double				next_component(const char **s, int last);
 double				parse_double(const char *s);
 double				parse_ratio(const char *s);
 t_color				parse_color(const char *s);

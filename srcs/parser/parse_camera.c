@@ -21,7 +21,7 @@ void	parse_camera(char **tokens, t_scene *scene)
 	scene->camera.pos = parse_vec3(tokens[1]);
 	scene->camera.dir = parse_normal(tokens[2]);
 	scene->camera.fov = parse_double(tokens[3]);
-	if (scene->camera.fov < 0.0 || scene->camera.fov > 180.0)
-		error_exit("camera FOV (Field of View) must be in [0, 180]");
+	if (scene->camera.fov <= 0.0 || scene->camera.fov >= 180.0)
+		error_exit("camera FOV must be above 0 and below 180");
 	scene->has_camera = 1;
 }
