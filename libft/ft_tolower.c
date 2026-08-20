@@ -1,0 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: azaytsev <azaytsev@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/10 07:18:38 by azaytsev          #+#    #+#             */
+/*   Updated: 2025/11/14 14:02:05 by azaytsev         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+int	ft_tolower(int c)
+{
+	if (c >= 'A' && c <= 'Z')
+		return (c + 32);
+	return (c);
+}
+/*
+int	main(void)
+{
+	printf("ft_tolower('A') : %c\n", ft_tolower('A'));
+	printf("tolower('A')    : %c\n", tolower('A'));
+	printf("ft_tolower('z') : %c\n", ft_tolower('z'));
+	printf("tolower('z')    : %c\n", tolower('z'));
+	printf("ft_tolower('5') : %c\n", ft_tolower('5'));
+	printf("tolower('5')    : %c\n", tolower('5'));
+	return (0);
+}*/
