@@ -6,7 +6,7 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 14:13:58 by jinliang          #+#    #+#             */
-/*   Updated: 2026/08/05 23:48:05 by azaytsev         ###   ########.fr       */
+/*   Updated: 2026/08/19 12:51:33 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static void	compute_basis(t_camera *cam, t_camera_basis *b)
 	double	half_w;
 
 	get_camera_axes(cam->dir, &right, &up);
-	half_h = tan((cam->fov * M_PI / 180.0) / 2.0);
-	half_w = half_h * ((double)WIDTH / (double)HEIGHT);
+	half_w = tan((cam->fov * M_PI / 180.0) / 2.0);
+	half_h = half_w * ((double)HEIGHT / (double)WIDTH);
 	b->origin = cam->pos;
 	b->horizontal = vec3_scale(right, 2.0 * half_w);
 	b->vertical = vec3_scale(up, 2.0 * half_h);

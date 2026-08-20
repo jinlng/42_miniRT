@@ -6,7 +6,7 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 16:05:29 by jinliang          #+#    #+#             */
-/*   Updated: 2026/08/05 23:48:01 by azaytsev         ###   ########.fr       */
+/*   Updated: 2026/08/19 12:51:33 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,6 +289,7 @@ void				mlx_put_pixel(t_mlx *mlx, int x, int y, t_color color);
 int					mouse_hook(int button, int x, int y, void *param);
 int					key_handler(int keycode, void *param);
 int					close_handler(t_app *app);
+int					expose_handler(t_app *app);
 
 /* ── Camera & render ──────────────────────────────────────────── */
 void				move_camera(int key, t_camera *cam, double speed);

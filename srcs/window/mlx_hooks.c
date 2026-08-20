@@ -6,7 +6,7 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 14:15:43 by jinliang          #+#    #+#             */
-/*   Updated: 2026/08/05 23:48:06 by azaytsev         ###   ########.fr       */
+/*   Updated: 2026/08/19 12:51:32 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,14 @@ int	close_handler(t_app *app)
 {
 	mlx_destroy_image(app->mlx.ptr, app->mlx.img);
 	mlx_destroy_window(app->mlx.ptr, app->mlx.win);
+	mlx_destroy_display(app->mlx.ptr);
+	free(app->mlx.ptr);
 	free_scene(&app->scene);
 	exit(0);
+}
+
+int	expose_handler(t_app *app)
+{
+	mlx_put_image_to_window(app->mlx.ptr, app->mlx.win, app->mlx.img, 0, 0);
+	return (0);
 }

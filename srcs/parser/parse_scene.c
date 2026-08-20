@@ -6,14 +6,21 @@
 /*   By: jinliang <jinliang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 16:51:41 by jinliang          #+#    #+#             */
-/*   Updated: 2026/08/05 23:48:05 by azaytsev         ###   ########.fr       */
+/*   Updated: 2026/08/19 12:58:32 by azaytsev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
 /* read one line from fd into a heap buffer — basic gnl replacement */
-static char	*read_line(int fd)
+static void	bump_total(long *total)
+{
+	*total += 1;
+	if (*total > 1048576)
+		error_exit("scene file too large");
+}
+
+static char	*read_line(int fd, long *total)
 {
 	char	*line;
 	char	c;
@@ -27,19 +34,18 @@ static char	*read_line(int fd)
 	while (i < 4095)
 	{
 		ret = read(fd, &c, 1);
-		if (ret == 0 || c == '\n')
-			break ;
 		if (ret < 0)
 			error_exit("read error");
+		if (ret == 0 || c == '\n')
+			break ;
+		bump_total(total);
 		line[i++] = c;
 	}
 	line[i] = '\0';
-	if (i == 0 && ret == 0)
-	{
-		free(line);
-		return (NULL);
-	}
-	return (line);
+	if (i > 0 || ret > 0)
+		return (line);
+	free(line);
+	return (NULL);
 }
 
 static int	has_rt_extension(const char *file)
@@ -54,21 +60,16 @@ static int	has_rt_extension(const char *file)
 	return (ft_strcmp(file + len - 3, ".rt") == 0);
 }
 
-void	parse_scene(const char *file, t_scene *scene)
+static void	read_all(int fd, t_scene *scene)
 {
-	int		fd;
+	long	total;
 	char	*line;
 	char	**tokens;
 
-	if (!has_rt_extension(file))
-		error_exit("scene file must have .rt extension");
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		error_exit("cannot open scene file");
-	ft_memset(scene, 0, sizeof(t_scene));
+	total = 0;
 	while (1)
 	{
-		line = read_line(fd);
+		line = read_line(fd, &total);
 		if (!line)
 			break ;
 		tokens = split_line(line);
@@ -77,6 +78,19 @@ void	parse_scene(const char *file, t_scene *scene)
 			dispatch(tokens, scene);
 		free_tokens(tokens);
 	}
+}
+
+void	parse_scene(const char *file, t_scene *scene)
+{
+	int	fd;
+
+	if (!has_rt_extension(file))
+		error_exit("scene file must have .rt extension");
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		error_exit("cannot open scene file");
+	ft_memset(scene, 0, sizeof(t_scene));
+	read_all(fd, scene);
 	close(fd);
 	if (!scene->has_ambient || !scene->has_camera || !scene->has_light)
 		error_exit("scene missing mandatory element (A, C, or L)");
