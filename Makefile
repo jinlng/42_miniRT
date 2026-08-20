@@ -71,7 +71,8 @@ BONUS_SRCS  = srcs/parser/dispatch_bonus.c \
               srcs/intersect/cone_utils_bonus.c \
               srcs/intersect/triangle_bonus.c \
               srcs/shading/shade_bonus.c \
-              srcs/shading/specular_bonus.c
+              srcs/shading/specular_bonus.c \
+              srcs/shading/checker_bonus.c
 
 COMMON_OBJS = $(COMMON_SRCS:.c=.o)
 MAND_OBJS   = $(MAND_SRCS:.c=.o)

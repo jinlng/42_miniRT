@@ -16,10 +16,12 @@
 ** Specular term is stubbed as a comment — drop it in for bonus.*/
 t_color	shade(t_hit *hit, t_scene *scene, t_ray ray)
 {
-	t_color	final;
-	t_color	contrib;
-	t_light	*light;
+	t_color		final;
+	t_color		contrib;
+	t_light		*light;
+	t_material	tmp;
 
+	apply_checker(hit, &tmp);
 	final = ambient_light(hit, &scene->ambient);
 	light = scene->lights;
 	while (light)
