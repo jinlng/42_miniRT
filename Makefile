@@ -35,8 +35,11 @@ COMMON_SRCS = srcs/main.c \
               srcs/window/mlx_init.c \
               srcs/window/mlx_hooks.c \
               srcs/window/mlx_utils.c \
+              srcs/window/keys.c \
+              srcs/window/clock.c \
               srcs/render/camera.c \
               srcs/render/render.c \
+              srcs/render/render_loop.c \
               srcs/render/preview.c \
               srcs/render/translation.c \
               srcs/intersect/intersect.c \
@@ -100,7 +103,7 @@ $(LIBFT):
 	@make -sC $(LIBFT_DIR)
 	@printf "$(GREEN)✓ Libft ready$(RESET)\n"
 
-%.o: %.c $(HEADERS)
+%.o: %.c $(HEADERS) Makefile
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
