@@ -112,7 +112,7 @@ pl <x,y,z> <nx,ny,nz> <r,g,b> (optionals: [material parameters])
 ```
 - **Cylinder**
 ```text
-cy <x,y,z> <nx,ny,nz> <diameter> <height> <r,g,b> (optionals: [material parameters])
+cy <x,y,z> <ax,ay,az> <diameter> <height> <r,g,b> (optionals: [material parameters])
 ```
 
 The two objects below exist in the bonus program only.
