@@ -34,7 +34,7 @@ int	in_shadow(t_scene *scene, t_hit *hit, t_light *light)
 	double		light_dist;
 
 	shadow_ray = make_shadow_ray(hit, light);
-	light_dist = vec3_len(vec3_sub(light->pos, hit->point)) - SHADOW_BIAS;
+	light_dist = vec3_len(vec3_sub(light->pos, hit->point)) - 2 * SHADOW_BIAS;
 	obj = scene->objects;
 	while (obj)
 	{
